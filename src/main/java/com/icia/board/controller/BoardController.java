@@ -1,6 +1,7 @@
 package com.icia.board.controller;
 
 import com.icia.board.dto.BoardDTO;
+import com.icia.board.dto.BoardFileDTO;
 import com.icia.board.service.BoardService;
 import lombok.Getter;
 import org.springframework.beans.Mergeable;
@@ -43,8 +44,9 @@ public class BoardController {
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
-        if(boardDTO.getFileAttached() == 1) {
-
+        if (boardDTO.getFileAttached() == 1) {
+            BoardFileDTO boardFileDTO = boardService.findFile(id);
+            model.addAttribute("boardFile", boardFileDTO);
         }
         return "boardDetail";
     }

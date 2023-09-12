@@ -68,4 +68,8 @@ public class BoardService {
     public BoardDTO findByBoardId(Long boardId) {
         return boardRepository.findByBoardId(boardId);
     }
+
+    public BoardFileDTO findFile(Long id) {
+        return boardRepository.findFile(id);
+    }
 }

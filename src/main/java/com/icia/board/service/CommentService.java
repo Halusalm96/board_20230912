@@ -20,7 +20,5 @@ public class CommentService {
         return commentRepository.findByBoardId(boardId);
     }
 
-    public BoardDTO findFile(Long id) {
-        return 
-    }
+
 }
