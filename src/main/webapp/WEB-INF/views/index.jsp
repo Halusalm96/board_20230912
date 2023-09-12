@@ -1,0 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+        <title>시작페이지</title>
+</head>
+<body>
+<a href="/board/save">글작성</a>
+<a href="/board/list">글목록</a>
+</body>
+</html>
