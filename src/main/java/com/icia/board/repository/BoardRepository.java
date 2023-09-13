@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BoardRepository {
@@ -64,5 +65,9 @@ public class BoardRepository {
 
     public List<BoardFileDTO> findFile(Long id) {
         return sql.selectList("Board.findFile", id);
+    }
+
+    public List<BoardDTO> pagingList(Map<String, Integer> pagingParams) {
+        return sql.selectList("Board.pagingList",pagingParams);
     }
 }

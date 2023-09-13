@@ -34,8 +34,8 @@ public class BoardController {
         return "boardList";
     }
     @GetMapping("/list")
-    public String boardList(Model model){
-        List<BoardDTO> boardDTOList = boardService.findAll();
+    public String boardList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model){
+        List<BoardDTO> boardDTOList = boardService.pagingList(page);
         model.addAttribute("boardList", boardDTOList);
         return "boardList";
     }

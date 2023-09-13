@@ -36,9 +36,9 @@
                 <td>댓글</td>
                 <td>작성시간</td>
             </tr>
-            <li class="comment-list" id="comment-list">
+            <div class="comment-list" id="comment-list">
 
-            </li>
+            </div>
             <c:forEach items="${commentList}" var="commentList">
                 <tr>
                     <td>${comment.id}</td>
@@ -60,8 +60,7 @@
     const commentWriter_fn = () => {
         const commentWriter = document.getElementById("commentWriter").value;
         const commentContents = document.getElementById("commentContents").value;
-        const boardId = ${board.id};
-        console.log(commentWriter+commentContents+boardId);
+        const boardId = '${board.id}';
         $.ajax({
             type: "post",
             url: "/comment/save",
@@ -72,17 +71,17 @@
             },
             success: function () {
                 document.location.submit();
-                    },
+            },
             error: function () {
                 console.log("실패")
             }
-        })
+        });
     }
     const commentList = document.getElementById("comment-list");
     const commentBoardId = '${sessionScope.id}';
-    if(commentBoardId.length != 0){
+    if (commentBoardId.length != 0) {
         commentList.innerHTML = "";
-    }else {
+    } else {
         commentList.innerHTML = "아직 작성된 댓글이 없습니다.";
     }
 </script>
