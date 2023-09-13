@@ -18,22 +18,23 @@ public class BoardService {
     BoardRepository boardRepository = new BoardRepository();
 
     public void boardSave(BoardDTO boardDTO) throws IOException {
-        if (boardDTO.getBoardFile().isEmpty()){
+        if (boardDTO.getBoardFile().get(0).isEmpty()) {
             boardDTO.setFileAttached(0);
             boardRepository.boardSave(boardDTO);
-        }else {
+        } else {
             boardDTO.setFileAttached(1);
             BoardDTO savedBoard = boardRepository.boardSave(boardDTO);
-            MultipartFile boardFile = boardDTO.getBoardFile();
-            String originalFilename = boardFile.getOriginalFilename();
-            String storedFileName = System.currentTimeMillis() + "-" + originalFilename;
-            BoardFileDTO boardFileDTO = new BoardFileDTO();
-            boardFileDTO.setOriginalFileName(originalFilename);
-            boardFileDTO.setStoredFileName(storedFileName);
-            boardFileDTO.setBoardId(savedBoard.getId());
-            String savePath = "C:\\Date\\spring_img\\" + storedFileName;
-            boardFile.transferTo(new File(savePath));
-            boardRepository.saveFile(boardFileDTO);
+            for (MultipartFile boardFile : boardDTO.getBoardFile()) {
+                String originalFilename = boardFile.getOriginalFilename();
+                String storedFileName = System.currentTimeMillis() + "-" + originalFilename;
+                BoardFileDTO boardFileDTO = new BoardFileDTO();
+                boardFileDTO.setOriginalFileName(originalFilename);
+                boardFileDTO.setStoredFileName(storedFileName);
+                boardFileDTO.setBoardId(savedBoard.getId());
+                String savePath = "C:\\Date\\spring_img\\" + storedFileName;
+                boardFile.transferTo(new File(savePath));
+                boardRepository.saveFile(boardFileDTO);
+            }
         }
     }
 
@@ -58,7 +59,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> search(String searchType, String query) {
-        return boardRepository.search(searchType,query);
+        return boardRepository.search(searchType, query);
     }
 
     public void updateHits(Long id) {
@@ -69,7 +70,7 @@ public class BoardService {
         return boardRepository.findByBoardId(boardId);
     }
 
-    public BoardFileDTO findFile(Long id) {
+    public List<BoardFileDTO> findFile(Long id) {
         return boardRepository.findFile(id);
     }
 }
