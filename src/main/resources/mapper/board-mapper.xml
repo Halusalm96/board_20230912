@@ -49,4 +49,7 @@
                date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits
         from board_table order by id desc limit #{start}, #{limit}
     </select>
+    <select id="count" resultType="Integer">
+        select count(id) from baord_table
+    </select>
 </mapper>

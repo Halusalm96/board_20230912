@@ -2,6 +2,7 @@ package com.icia.board.controller;
 
 import com.icia.board.dto.BoardDTO;
 import com.icia.board.dto.BoardFileDTO;
+import com.icia.board.dto.PageDTO;
 import com.icia.board.service.BoardService;
 import lombok.Getter;
 import org.springframework.beans.Mergeable;
@@ -37,6 +38,9 @@ public class BoardController {
     public String boardList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model){
         List<BoardDTO> boardDTOList = boardService.pagingList(page);
         model.addAttribute("boardList", boardDTOList);
+
+       PageDTO pageDTO = boardService.pageNumber(page);
+       model.addAttribute("paging",pageDTO);
         return "boardList";
     }
     @GetMapping("/detail")
